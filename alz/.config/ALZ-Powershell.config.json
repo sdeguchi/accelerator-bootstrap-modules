@@ -111,6 +111,33 @@
             "validation": "configuration_file_path",
             "display_order": 7,
             "description": "The identifier of the Connectivity Subscription."
+        },
+        "additional_folders_path" :{
+            "type": "list(string)",
+            "default": "",
+            "required": false,
+            "source": "input",
+            "maps_to": [ "bootstrap"],
+            "display_order": 8,
+            "description": "Path to directory with additional folders."
+        },
+        "architecture_definition_path" :{
+            "type": "string",
+            "default": "",
+            "required": false,
+            "source": "input",
+            "maps_to": [ "bootstrap"],
+            "display_order": 9,
+            "description": "Path to directory with architecture definition."
+        },
+        "enable_alz" :{
+            "type": "bool",
+            "default": "false",
+            "required": false,
+            "source": "input",
+            "maps_to": [ "bootstrap"],
+            "display_order": 10,
+            "description": "Enable the ALZ archetypes in the architecture definition"
         }
     }
 }
