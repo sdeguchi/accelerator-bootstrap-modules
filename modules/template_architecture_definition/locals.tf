@@ -31,17 +31,17 @@ locals {
   root = (var.enable_alz ?
     (var.architecture_definition_name == local.slz_architecture_definition_name ? concat(local.slz_global, local.alz_root) : concat(local.fsi_root, local.alz_root))
   : (var.architecture_definition_name == local.fsi_architecture_definition_name ? local.fsi_root : local.slz_global))
-  platform = var.enable_alz ? local.alz_platform : []
-  landing_zone = var.enable_alz ? local.alz_landing_zone : []
-  decommissioned = var.enable_alz ? local.alz_decommissioned :[]
-  sandboxes = var.enable_alz ? local.alz_sandboxes :[]
-  corp = var.enable_alz ? local.alz_corp :[]
-  online = var.enable_alz ? local.alz_online :[]
-  management = var.enable_alz ? local.alz_management :[]
-  connectivity = var.enable_alz ? local.alz_connectivity :[]
-  identity = var.enable_alz ? local.alz_identity :[]
-  confidential_corp = var.enable_alz ? local.alz_corp :[]
-  confidential_online = var.enable_alz ? local.alz_online :[]
+  platform            = var.enable_alz ? local.alz_platform : []
+  landing_zone        = var.enable_alz ? local.alz_landing_zone : []
+  decommissioned      = var.enable_alz ? local.alz_decommissioned : []
+  sandboxes           = var.enable_alz ? local.alz_sandboxes : []
+  corp                = var.enable_alz ? local.alz_corp : []
+  online              = var.enable_alz ? local.alz_online : []
+  management          = var.enable_alz ? local.alz_management : []
+  connectivity        = var.enable_alz ? local.alz_connectivity : []
+  identity            = var.enable_alz ? local.alz_identity : []
+  confidential_corp   = var.enable_alz ? local.alz_corp : []
+  confidential_online = var.enable_alz ? local.alz_online : []
 
   template_vars = {
     architecture_definition_name            = var.architecture_definition_name
@@ -59,16 +59,16 @@ locals {
     confidential_online_management_group_id = "${local.default_prefix}-landingzones-confidential-online${local.default_postfix}"
 
     # example of how to add dynamic values to the template archetypes
-    root_archetypes           = join(", ", local.root)
-    platform_archetypes       = join(", ", local.platform)
-    landing_zone_archetypes   = join(", ", local.landing_zone)
-    decommissioned_archetypes = join(", ", local.decommissioned)
-    sandboxes_archetypes      = join(", ", local.sandboxes)
-    corp_archetypes           = join(", ", local.corp)
-    online_archetypes         = join(", ", local.online)
-    management_archetypes     = join(", ", local.management)
-    connectivity_archetypes   = join(", ", local.connectivity)
-    identity_archetypes       = join(", ", local.identity)
+    root_archetypes                = join(", ", local.root)
+    platform_archetypes            = join(", ", local.platform)
+    landing_zone_archetypes        = join(", ", local.landing_zone)
+    decommissioned_archetypes      = join(", ", local.decommissioned)
+    sandboxes_archetypes           = join(", ", local.sandboxes)
+    corp_archetypes                = join(", ", local.corp)
+    online_archetypes              = join(", ", local.online)
+    management_archetypes          = join(", ", local.management)
+    connectivity_archetypes        = join(", ", local.connectivity)
+    identity_archetypes            = join(", ", local.identity)
     confidential_corp_archetypes   = join(", ", local.confidential_corp)
     confidential_online_archetypes = join(", ", local.confidential_online)
 
