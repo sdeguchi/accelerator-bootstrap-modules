@@ -5,20 +5,44 @@ locals {
   default_postfix = local.starter_cache.default_postfix
 
   template_file_path = "${var.starter_module_folder_path}/../Common/template_architecture_definition/templates/${var.architecture_definition_name}.alz_architecture_definition.json.tftpl"
-  enable_alz         = var.enable_alz
+
+  slz_architecture_definition_name = "slz"
+  fsi_architecture_definition_name = "fsi"
+
+  # SLZ archetypes
+  slz_global = ["\"global\""]
+
+  # FSI archetypes
+  fsi_root = ["\"fsi_root\""]
 
   # ALZ archetypes
-  alz_root = "\"root\""
-  alz_platform = "\"platform\""
-  alz_landing_zone = "\"landing_zone\""
-  alz_decommissioned = "\"decommissioned\""
-  alz_sandboxes = "\"sandboxes\""
-  alz_corp = "\"corp\""
-  alz_online = "\"online\""
-  alz_management = "\"management\""
-  alz_connectivity = "\"connectivity\""
-  alz_identity = "\"identity\""
-  
+  alz_root           = ["\"root\""]
+  alz_platform       = ["\"platform\""]
+  alz_landing_zone   = ["\"landing_zone\""]
+  alz_decommissioned = ["\"decommissioned\""]
+  alz_sandboxes      = ["\"sandboxes\""]
+  alz_corp           = ["\"corp\""]
+  alz_online         = ["\"online\""]
+  alz_management     = ["\"management\""]
+  alz_connectivity   = ["\"connectivity\""]
+  alz_identity       = ["\"identity\""]
+
+  # management group layered archetypes
+  root = (var.enable_alz ?
+    (var.architecture_definition_name == local.slz_architecture_definition_name ? concat(local.slz_global, local.alz_root) : concat(local.fsi_root, local.alz_root))
+  : (var.architecture_definition_name == local.fsi_architecture_definition_name ? local.fsi_root : local.slz_global))
+  platform = var.enable_alz ? local.alz_platform : []
+  landing_zone = var.enable_alz ? local.alz_landing_zone : []
+  decommissioned = var.enable_alz ? local.alz_decommissioned :[]
+  sandboxes = var.enable_alz ? local.alz_sandboxes :[]
+  corp = var.enable_alz ? local.alz_corp :[]
+  online = var.enable_alz ? local.alz_online :[]
+  management = var.enable_alz ? local.alz_management :[]
+  connectivity = var.enable_alz ? local.alz_connectivity :[]
+  identity = var.enable_alz ? local.alz_identity :[]
+  confidential_corp = var.enable_alz ? local.alz_corp :[]
+  confidential_online = var.enable_alz ? local.alz_online :[]
+
   template_vars = {
     architecture_definition_name            = var.architecture_definition_name
     root_management_group_id                = "${local.default_prefix}${local.default_postfix}"
@@ -35,25 +59,37 @@ locals {
     confidential_online_management_group_id = "${local.default_prefix}-landingzones-confidential-online${local.default_postfix}"
 
     # example of how to add dynamic values to the template archetypes
-    root_archetypes = var.enable_alz ? local.alz_root : ""
-    platform_archetypes = var.enable_alz ? local.alz_platform : ""
-    landing_zone_archetypes = var.enable_alz ? local.alz_landing_zone : ""
-    decommissioned_archetypes = var.enable_alz ? local.alz_decommissioned : ""
-    sandboxes_archetypes = var.enable_alz ? local.alz_sandboxes : ""
-    corp_archetypes = var.enable_alz ? local.alz_corp : ""
-    online_archetypes = var.enable_alz ? local.alz_online : ""
-    management_archetypes = var.enable_alz ? local.alz_management : ""
-    connectivity_archetypes = var.enable_alz ? local.alz_connectivity : ""
-    identity_archetypes = var.enable_alz ? local.alz_identity : ""
-    
+    root_archetypes           = join(", ", local.root)
+    platform_archetypes       = join(", ", local.platform)
+    landing_zone_archetypes   = join(", ", local.landing_zone)
+    decommissioned_archetypes = join(", ", local.decommissioned)
+    sandboxes_archetypes      = join(", ", local.sandboxes)
+    corp_archetypes           = join(", ", local.corp)
+    online_archetypes         = join(", ", local.online)
+    management_archetypes     = join(", ", local.management)
+    connectivity_archetypes   = join(", ", local.connectivity)
+    identity_archetypes       = join(", ", local.identity)
+    confidential_corp_archetypes   = join(", ", local.confidential_corp)
+    confidential_online_archetypes = join(", ", local.confidential_online)
+
     # sample snippet from architecture definition
-    # "management_groups": [
     # {
-    #   "archetypes":  [${root_archetypes}],
-    #   "display_name": "Intermediate Root",
-    #   "exists": false,
-    #   "id": "${root_management_group_id}",
-    #   "parent_id": null
-    # },
+    #   "name": "fsi",
+    #   "management_groups": [
+    #     {
+    #       "archetypes": [${root_archetypes}],
+    #       "display_name": "Intermediate Root",
+    #       "exists": false,
+    #       "id": "${root_management_group_id}",
+    #       "parent_id": null
+    #     },
+    #     {
+    #       "archetypes": [${landing_zone_archetypes}],
+    #       "display_name": "Landing Zones",
+    #       "exists": false,
+    #       "id": "${landing_zone_management_group_id}",
+    #       "parent_id": "${root_management_group_id}"
+    #     }, 
+    #     ...
   }
 }
