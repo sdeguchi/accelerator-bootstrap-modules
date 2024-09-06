@@ -4,7 +4,7 @@ locals {
   default_prefix  = local.starter_cache.default_prefix
   default_postfix = local.starter_cache.default_postfix
 
-  template_file_path = "${var.starter_module_folder_path}/../Common/template_architecture_definition/templates/${var.architecture_definition_name}.alz_architecture_definition.json.tftpl"
+  template_file_path = "${var.starter_module_folder_path}/lib/templates/${var.architecture_definition_name}.alz_architecture_definition.json.tftpl"
 
   slz_architecture_definition_name = "slz"
   fsi_architecture_definition_name = "fsi"
@@ -14,6 +14,9 @@ locals {
 
   # FSI archetypes
   fsi_root = ["\"fsi_root\""]
+
+  # SLZ/FSI confidential archetypes
+  confidential   = ["\"confidential\""]
 
   # ALZ archetypes
   alz_root           = ["\"root\""]
@@ -40,8 +43,8 @@ locals {
   management          = var.enable_alz ? local.alz_management : []
   connectivity        = var.enable_alz ? local.alz_connectivity : []
   identity            = var.enable_alz ? local.alz_identity : []
-  confidential_corp   = var.enable_alz ? local.alz_corp : []
-  confidential_online = var.enable_alz ? local.alz_online : []
+  confidential_corp   = local.confidential
+  confidential_online = local.confidential
 
   template_vars = {
     architecture_definition_name            = var.architecture_definition_name
@@ -49,7 +52,7 @@ locals {
     platform_management_group_id            = "${local.default_prefix}-platform${local.default_postfix}"
     landing_zone_management_group_id        = "${local.default_prefix}-landingzones${local.default_postfix}"
     decommissioned_management_group_id      = "${local.default_prefix}-decommissioned${local.default_postfix}"
-    sandboxes_management_group_id           = "${local.default_prefix}-sandbox${local.default_postfix}"
+    sandbox_management_group_id             = "${local.default_prefix}-sandbox${local.default_postfix}"
     corp_management_group_id                = "${local.default_prefix}-landingzones-corp${local.default_postfix}"
     online_management_group_id              = "${local.default_prefix}-landingzones-online${local.default_postfix}"
     management_management_group_id          = "${local.default_prefix}-platform-management${local.default_postfix}"

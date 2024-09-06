@@ -57,21 +57,3 @@ variable "bootstrap_location" {
   description = "Azure Deployment location for the bootstrap resources (e.g. storage account, identities, etc)|4|azure_location"
   type        = string
 }
-
-variable "additional_folders_path" {
-  description = "Paths to directory with additional folders to upload to the repository (e.g. c:\\templates\\Microsoft_Cloud_for_Industry\\Common or /templates/Microsoft_Cloud_for_Industry/Common)"
-  type        = list(string)
-  default     = []
-}
-
-variable "architecture_definition_path" {
-  description = "The path to the architecture definition file to use instead of the default"
-  type        = string
-  default     = ""
-}
-
-variable "enable_alz" {
-  description = "Enable the ALZ archetypes in the architecture definition"
-  type        = bool
-  default     = false
-}
