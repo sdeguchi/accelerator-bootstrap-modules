@@ -13,6 +13,7 @@ module "architecture_definition" {
   starter_module_folder_path   = local.starter_module_folder_path
   architecture_definition_name = local.architecture_definition_name
   enable_alz                   = var.enable_alz
+  architecture_definition_path = var.architecture_definition_path
 }
 
 module "files" {

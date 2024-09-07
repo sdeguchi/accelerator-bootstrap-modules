@@ -13,3 +13,9 @@ variable "enable_alz" {
   type        = bool
   default     = false
 }
+
+variable "architecture_definition_path" {
+  description = "The path to the architecture definition file to use instead of the default"
+  type        = string
+  default     = ""
+}

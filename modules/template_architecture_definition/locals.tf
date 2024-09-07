@@ -1,4 +1,7 @@
 locals {
+  # Customer has provided a custom architecture definition
+  has_custom_architecture_definition = var.architecture_definition_path != ""
+
   # Determine the default prefix and postfix based on the starter cache values
   starter_cache   = jsondecode(file("${var.starter_module_folder_path}/../../starter-cache.json"))
   default_prefix  = local.starter_cache.default_prefix
@@ -16,7 +19,7 @@ locals {
   fsi_root = ["\"fsi_root\""]
 
   # SLZ/FSI confidential archetypes
-  confidential   = ["\"confidential\""]
+  confidential = ["\"confidential\""]
 
   # ALZ archetypes
   alz_root           = ["\"root\""]

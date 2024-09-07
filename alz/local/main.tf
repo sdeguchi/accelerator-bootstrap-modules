@@ -13,11 +13,12 @@ module "architecture_definition" {
   starter_module_folder_path   = local.starter_module_folder_path
   architecture_definition_name = local.architecture_definition_name
   enable_alz                   = var.enable_alz
+  architecture_definition_path = var.architecture_definition_path
 }
 
 resource "local_file" "architecture_definition_file" {
   count    = local.has_architecture_definition ? 1 : 0
-  content  = module.architecture_definition[0].architecture_definition_json.rendered
+  content  = module.architecture_definition[0].architecture_definition_json
   filename = local.architecture_definition_file_destination
 }
 
