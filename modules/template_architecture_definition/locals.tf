@@ -24,7 +24,7 @@ locals {
   # ALZ archetypes
   alz_root           = ["\"root\""]
   alz_platform       = ["\"platform\""]
-  alz_landing_zone   = ["\"landing_zone\""]
+  alz_landing_zone   = ["\"landing_zones\""]
   alz_decommissioned = ["\"decommissioned\""]
   alz_sandboxes      = ["\"sandboxes\""]
   alz_corp           = ["\"corp\""]
@@ -77,25 +77,5 @@ locals {
     identity_archetypes            = join(", ", local.identity)
     confidential_corp_archetypes   = join(", ", local.confidential_corp)
     confidential_online_archetypes = join(", ", local.confidential_online)
-
-    # sample snippet from architecture definition
-    # {
-    #   "name": "fsi",
-    #   "management_groups": [
-    #     {
-    #       "archetypes": [${root_archetypes}],
-    #       "display_name": "Intermediate Root",
-    #       "exists": false,
-    #       "id": "${root_management_group_id}",
-    #       "parent_id": null
-    #     },
-    #     {
-    #       "archetypes": [${landing_zone_archetypes}],
-    #       "display_name": "Landing Zones",
-    #       "exists": false,
-    #       "id": "${landing_zone_management_group_id}",
-    #       "parent_id": "${root_management_group_id}"
-    #     }, 
-    #     ...
   }
 }
