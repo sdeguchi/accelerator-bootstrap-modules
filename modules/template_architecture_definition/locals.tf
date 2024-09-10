@@ -3,7 +3,7 @@ locals {
   has_custom_architecture_definition = var.architecture_definition_path != ""
 
   # Determine the default prefix and postfix based on the starter cache values
-  starter_cache   = jsondecode(file("${var.starter_module_folder_path}/../../starter-cache.json"))
+  starter_cache   = jsondecode(file("${var.starter_module_folder_path}/terraform.tfvars.json"))
   default_prefix  = local.starter_cache.default_prefix
   default_postfix = local.starter_cache.default_postfix
 
