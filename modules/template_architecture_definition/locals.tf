@@ -1,13 +1,14 @@
 locals {
-  # Customer has provided a custom architecture definition
-  has_custom_architecture_definition = var.architecture_definition_path != ""
-
   # Determine the default prefix and postfix based on the starter module tfvars
-  starter_module_tfvars = jsondecode(file("${var.starter_module_folder_path}/terraform.tfvars.json"))
-  default_prefix        = local.starter_module_tfvars.default_prefix
-  default_postfix       = local.starter_module_tfvars.default_postfix
+  starter_module_tfvars        = jsondecode(file("${var.starter_module_folder_path}/terraform.tfvars.json"))
+  default_prefix               = local.starter_module_tfvars.default_prefix
+  default_postfix              = local.starter_module_tfvars.default_postfix
+  enable_alz                   = local.starter_module_tfvars.enable_alz
+  template_file_path           = local.starter_module_tfvars.template_file_path
+  architecture_definition_path = local.starter_module_tfvars.architecture_definition_path
 
-  template_file_path = "${var.starter_module_folder_path}/lib/templates/${var.architecture_definition_name}.alz_architecture_definition.json.tftpl"
+  # Customer has provided a custom architecture definition
+  has_custom_architecture_definition = local.architecture_definition_path != ""
 
   slz_architecture_definition_name = "slz"
   fsi_architecture_definition_name = "fsi"
@@ -34,18 +35,18 @@ locals {
   alz_identity       = ["\"identity\""]
 
   # management group layered archetypes
-  root = (var.enable_alz ?
+  root = (local.enable_alz ?
     (var.architecture_definition_name == local.slz_architecture_definition_name ? concat(local.slz_global, local.alz_root) : concat(local.fsi_root, local.alz_root))
   : (var.architecture_definition_name == local.fsi_architecture_definition_name ? local.fsi_root : local.slz_global))
-  platform            = var.enable_alz ? local.alz_platform : []
-  landing_zone        = var.enable_alz ? local.alz_landing_zone : []
-  decommissioned      = var.enable_alz ? local.alz_decommissioned : []
-  sandboxes           = var.enable_alz ? local.alz_sandboxes : []
-  corp                = var.enable_alz ? local.alz_corp : []
-  online              = var.enable_alz ? local.alz_online : []
-  management          = var.enable_alz ? local.alz_management : []
-  connectivity        = var.enable_alz ? local.alz_connectivity : []
-  identity            = var.enable_alz ? local.alz_identity : []
+  platform            = local.enable_alz ? local.alz_platform : []
+  landing_zone        = local.enable_alz ? local.alz_landing_zone : []
+  decommissioned      = local.enable_alz ? local.alz_decommissioned : []
+  sandboxes           = local.enable_alz ? local.alz_sandboxes : []
+  corp                = local.enable_alz ? local.alz_corp : []
+  online              = local.enable_alz ? local.alz_online : []
+  management          = local.enable_alz ? local.alz_management : []
+  connectivity        = local.enable_alz ? local.alz_connectivity : []
+  identity            = local.enable_alz ? local.alz_identity : []
   confidential_corp   = local.confidential
   confidential_online = local.confidential
 
