@@ -3,9 +3,9 @@ locals {
   starter_module_tfvars        = jsondecode(file("${var.starter_module_folder_path}/terraform.tfvars.json"))
   default_prefix               = local.starter_module_tfvars.default_prefix
   default_postfix              = local.starter_module_tfvars.default_postfix
-  enable_alz                   = local.starter_module_tfvars.enable_alz
-  template_file_path           = local.starter_module_tfvars.template_file_path
-  architecture_definition_path = local.starter_module_tfvars.architecture_definition_path
+  enable_alz                   = local.starter_module_tfvars.enable_alz_archetypes_in_architecture_definition_template
+  template_file_path           = local.starter_module_tfvars.architecture_definition_template_path
+  architecture_definition_path = local.starter_module_tfvars.architecture_definition_override_path
 
   # Customer has provided a custom architecture definition
   has_custom_architecture_definition = local.architecture_definition_path != ""
