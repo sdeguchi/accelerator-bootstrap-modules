@@ -15,7 +15,7 @@ locals {
   # ALZ archetypes
   alz_root_archtype           = ["root"]
   alz_platform_archtype       = ["platform"]
-  alz_landing_zone_archtype   = ["landing_zones"]
+  alz_landing_zone_archtype   = ["landing_zoneds"]
   alz_decommissioned_archtype = ["decommissioned"]
   alz_sandboxes_archtype      = ["sandbox"]
   alz_management_archtype     = ["management"]
